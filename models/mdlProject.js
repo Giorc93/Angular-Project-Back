@@ -7,7 +7,7 @@ var ProjectSchema = Schema({
   name: String,
   description: String,
   category: String,
-  langs: Array,
+  langs: String,
   year: Number,
   image: String,
 });
