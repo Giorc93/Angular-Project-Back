@@ -1,6 +1,8 @@
 "use strict";
 
 var Project = require("../models/mdlProject");
+var fs = require("fs");
+var path = require("path");
 
 var controller = {
   home: function (req, res) {
@@ -100,7 +102,7 @@ var controller = {
       let fileExt = fileName.substr(fileName.lastIndexOf(".") + 1);
       if (
         fileExt == "png" ||
-        fileExt == "jpeg" ||
+        fileExt == "jpg" ||
         fileExt == "jpeg" ||
         fileExt == "gif"
       ) {
@@ -117,7 +119,7 @@ var controller = {
             if (!projectUpdated)
               return res.status(400).send({ message: "Client error..." });
 
-            return res.status(200).send({ message: fileName });
+            return res.status(200).send({ projectUpdated });
           }
         );
       } else {
@@ -129,6 +131,21 @@ var controller = {
         .send({ message: "Client error... ", desc: "Image not loaded!" });
     }
   },
+
+  getImgFile: function(req, res){
+    var file = req.params.image;
+    var path_file = './uploads/'+file;
+
+    fs.exists(path_file, (exists) => {
+      if(exists){
+        return res.sendFile(path.resolve(path_file));
+      }else{
+        return res.status(200).send({
+          message: 'Image does not exist'
+        })
+      }
+    })
+  }
 };
 
 module.exports = controller;

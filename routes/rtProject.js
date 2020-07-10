@@ -13,5 +13,6 @@ router.get("/getA", projectController.getAll);
 router.put("/update/:id?", projectController.updateProject);
 router.delete("/delete/:id?", projectController.deleteProject);
 router.post("/uploadImg/:id?", projectController.uploadImage);
+router.get("/getImg/:image", projectController.getImgFile);
 
 module.exports = router;
